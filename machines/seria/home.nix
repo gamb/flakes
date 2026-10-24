@@ -38,10 +38,12 @@ in
   # Release Super shortcuts used as Meta in Emacs, except the launcher binding.
   dconf.settings = {
     "org/gnome/mutter".overlay-key = "";
+    "org/gnome/mutter/keybindings".switch-monitor = [ "XF86Display" ];
     "org/gnome/shell/keybindings" = {
       toggle-application-view = [ "F8" ];
       toggle-message-tray = noShortcuts;
       toggle-quick-settings = noShortcuts;
+      focus-active-notification = noShortcuts;
     };
     "desktop/ibus/panel/emoji".hotkey = noShortcuts;
     "org/gnome/settings-daemon/plugins/media-keys" = {
