@@ -31,6 +31,7 @@
   (line-spacing 3)
   (cursor-type 'bar)
   (scroll-bar-mode nil)
+  (frame-inhibit-implied-resize t)
   :config
   (global-set-key (kbd "M-`")
                   (if (fboundp 'ns-next-frame)
@@ -66,7 +67,6 @@
   :custom-face
   (mode-line ((t (:weight light :background "grey90" :box nil))))
   (mode-line-inactive ((t (:weight light :background "grey95" :box nil))))
-  (default ((t (:family "Lilex"))))
   (fringe ((t (:background nil)))))
 
 (use-package ef-themes
