@@ -20,16 +20,15 @@
     { nixpkgs, home-manager, emacs-overlay, llm-agents, mattpocock-skills, ... }:
     let
       system = "aarch64-darwin";
+      overlays = [
+        emacs-overlay.overlays.default
+        # Use upstream packages to preserve Numtide binary-cache compatibility.
+        (final: _prev: {
+          llm-agents = llm-agents.packages.${final.stdenv.hostPlatform.system};
+        })
+      ];
       pkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          emacs-overlay.overlays.default
-          # Use llm-agents' prebuilt packages (built against its own newer
-          # nixpkgs) rather than shared-nixpkgs, which rebuilds the npm
-          # packages against our nixpkgs and fails the npmDepsHash check on our
-          # pinned nixpkgs. See https://github.com/numtide/llm-agents.nix/issues/4320.
-          (_final: _prev: { llm-agents = llm-agents.packages.${system}; })
-        ];
+        inherit system overlays;
       };
     in
     {
@@ -39,10 +38,7 @@
           ./machines/seria/configuration.nix
           home-manager.nixosModules.home-manager
           {
-            nixpkgs.overlays = [
-              emacs-overlay.overlays.default
-              (_final: _prev: { llm-agents = llm-agents.packages.x86_64-linux; })
-            ];
+            nixpkgs.overlays = overlays;
           }
         ];
       };
