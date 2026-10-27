@@ -19,7 +19,6 @@
   outputs =
     { nixpkgs, home-manager, emacs-overlay, llm-agents, mattpocock-skills, ... }:
     let
-      system = "aarch64-darwin";
       overlays = [
         emacs-overlay.overlays.default
         # Use upstream packages to preserve Numtide binary-cache compatibility.
@@ -27,20 +26,19 @@
           llm-agents = llm-agents.packages.${final.stdenv.hostPlatform.system};
         })
       ];
-      pkgs = import nixpkgs {
-        inherit system overlays;
-      };
     in
     {
-      nixosConfigurations.seria = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./machines/seria/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            nixpkgs.overlays = overlays;
-          }
-        ];
+      nixosConfigurations = {
+        seria = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./machines/seria/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.overlays = overlays;
+            }
+          ];
+        };
       };
 
       devShells = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-linux" ] (
@@ -58,14 +56,17 @@
         }
       );
 
-      homeConfigurations."macbook" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+      homeConfigurations = {
+        macbook = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+            inherit overlays;
+          };
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home-manager/macbook.nix ];
+          modules = [ ./home-manager/macbook.nix ];
 
-        extraSpecialArgs = { inherit mattpocock-skills; };
+          extraSpecialArgs = { inherit mattpocock-skills; };
+        };
       };
     };
 }
