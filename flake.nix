@@ -41,19 +41,6 @@
       ];
     in
     {
-      nixosConfigurations = {
-        seria = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./machines/seria/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              nixpkgs.overlays = overlays;
-            }
-          ];
-        };
-      };
-
       devShells = forAllSystems (
         shellSystem:
         let
@@ -69,6 +56,19 @@
           };
         }
       );
+
+      nixosConfigurations = {
+        seria = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./machines/seria/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.overlays = overlays;
+            }
+          ];
+        };
+      };
 
       homeConfigurations = {
         macbook = home-manager.lib.homeManagerConfiguration {
