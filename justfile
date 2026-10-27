@@ -23,6 +23,3 @@ seria-rebuild:
 
 fmt:
   nix fmt
-
-hooks:
-  git config core.hooksPath .githooks

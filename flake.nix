@@ -18,6 +18,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       home-manager,
       emacs-overlay,
@@ -53,8 +54,6 @@
         };
       };
 
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
-
       devShells = forAllSystems (
         shellSystem:
         let
@@ -62,8 +61,9 @@
         in
         {
           default = shellPkgs.mkShell {
-            packages = [
-              shellPkgs.just
+            packages = with shellPkgs; [
+              just
+              nixfmt
               home-manager.packages.${shellSystem}.home-manager
             ];
           };

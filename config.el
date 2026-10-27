@@ -413,7 +413,8 @@
   :config
   (reformatter-define nixfmt
     :program "nixfmt"
-    :lighter " nixfmt"))
+    :lighter " nixfmt")
+  (add-hook 'nix-ts-mode-hook #'nixfmt-on-save-mode))
 
 (use-package j-mode
   :demand t
