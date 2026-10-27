@@ -17,7 +17,14 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, emacs-overlay, llm-agents, mattpocock-skills, ... }:
+    {
+      nixpkgs,
+      home-manager,
+      emacs-overlay,
+      llm-agents,
+      mattpocock-skills,
+      ...
+    }:
     let
       overlays = [
         emacs-overlay.overlays.default

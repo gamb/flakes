@@ -5,10 +5,10 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -77,12 +77,12 @@
 
     keyboards.default = {
       ids = [ "*" ];
-      
+
       settings = {
-         main = {
-           leftmeta = "leftcontrol";
-           leftcontrol = "leftmeta";
-         };
+        main = {
+          leftmeta = "leftcontrol";
+          leftcontrol = "leftmeta";
+        };
       };
     };
   };
@@ -134,7 +134,10 @@
   users.users."gamble" = {
     isNormalUser = true;
     description = "Adam Gamble";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     shell = pkgs.fish;
   };
 
@@ -158,7 +161,7 @@
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
-    
+
     extraCompatPackages = with pkgs; [ proton-ge-bin ];
   };
 
@@ -180,8 +183,8 @@
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
+    #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #   wget
     lm_sensors
     btop
     mangohud

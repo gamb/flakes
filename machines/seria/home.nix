@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   noShortcuts = lib.hm.gvariant.mkEmptyArray lib.hm.gvariant.type.string;

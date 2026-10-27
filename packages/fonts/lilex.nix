@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> {} }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 pkgs.stdenv.mkDerivation {
   name = "lilex-font";
@@ -13,5 +15,3 @@ pkgs.stdenv.mkDerivation {
     cp -r ttf/*.ttf $out/share/fonts/truetype/
   '';
 }
-
-

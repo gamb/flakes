@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
@@ -28,7 +33,9 @@ in
   programs.emacs = {
     enable = true;
     package = (pkgs.emacsPackagesFor emacsBase).emacsWithPackages (
-      epkgs: with epkgs; [
+      epkgs:
+      with epkgs;
+      [
         (epkgs.trivialBuild {
           pname = "eglot-hierarchy";
           version = "unstable";
@@ -120,7 +127,8 @@ in
             tree-sitter-javascript
           ]
         ))
-      ] ++ lib.optionals isDarwin [ epkgs.ns-auto-titlebar ]
+      ]
+      ++ lib.optionals isDarwin [ epkgs.ns-auto-titlebar ]
     );
     extraConfig = builtins.readFile ../config.el;
   };
