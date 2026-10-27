@@ -20,3 +20,9 @@ garbage:
 
 seria-rebuild:
   sudo nixos-rebuild switch --flake path:.#seria
+
+fmt:
+  nix fmt
+
+hooks:
+  git config core.hooksPath .githooks

@@ -26,6 +26,11 @@
       ...
     }:
     let
+      supportedSystems = [
+        "aarch64-darwin"
+        "x86_64-linux"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
       overlays = [
         emacs-overlay.overlays.default
         # Use upstream packages to preserve Numtide binary-cache compatibility.
@@ -48,7 +53,9 @@
         };
       };
 
-      devShells = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-linux" ] (
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
+
+      devShells = forAllSystems (
         shellSystem:
         let
           shellPkgs = nixpkgs.legacyPackages.${shellSystem};

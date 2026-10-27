@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+files=$(git diff --cached --name-only --diff-filter=ACMR -- '*.nix')
+[ -n "$files" ] || exit 0
+nix fmt --no-write-lock-file -- --ci $files
