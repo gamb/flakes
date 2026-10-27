@@ -10,8 +10,8 @@
     };
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     llm-agents.url = "github:numtide/llm-agents.nix";
-    mattpocock-skills = {
-      url = "github:mattpocock/skills";
+    cursor-plugins = {
+      url = "github:cursor/plugins";
       flake = false;
     };
   };
@@ -22,7 +22,7 @@
       home-manager,
       emacs-overlay,
       llm-agents,
-      mattpocock-skills,
+      cursor-plugins,
       ...
     }:
     let
@@ -79,7 +79,7 @@
 
           modules = [ ./home-manager/macbook.nix ];
 
-          extraSpecialArgs = { inherit mattpocock-skills; };
+          extraSpecialArgs = { inherit cursor-plugins; };
         };
       };
     };
