@@ -28,6 +28,7 @@ in
     pkgs.ripgrep
     pkgs.tree
     pkgs.sqlite
+    pkgs.discord
   ];
 
   programs.vicinae = {
