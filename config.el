@@ -321,7 +321,9 @@
 (use-package move-dup
   :bind
   (:map move-dup-mode-map
-	("C-M-<up>")))
+	("C-M-<up>")
+        ("C-S-<up>" . move-dup-move-lines-up)
+        ("C-S-<down>" . move-dup-move-lines-down)))
 
 (use-package window
   :custom
