@@ -45,6 +45,7 @@ in
     "org/gnome/mutter".overlay-key = "";
     "org/gnome/mutter/keybindings".switch-monitor = [ "XF86Display" ];
     "org/gnome/shell/keybindings" = {
+      screenshot = [ "<Shift>Print" "F11" ];
       toggle-application-view = [ "F8" ];
       toggle-message-tray = noShortcuts;
       toggle-quick-settings = noShortcuts;
