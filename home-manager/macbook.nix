@@ -1,21 +1,5 @@
 { pkgs, ... }:
 
-let
-  # eMudhra compromise: bundle-based clients do not inherit Apple's trustd
-  # revocations. Use the same root blacklist as seria for CLI tools.
-  # Revisit once the pinned CA bundle includes the upstream remediation.
-  # https://github.com/NixOS/nixpkgs/issues/576485
-  cacertWithBlacklist = pkgs.cacert.override {
-    blacklist = [
-      "Comodo AAA Services root"
-      "emSign ECC Root CA - G3"
-      "emSign Root CA - C1"
-      "emSign ECC Root CA - C3"
-    ];
-  };
-  # Preserve OpenSSL's explicit distrust flags.
-  caBundle = "${cacertWithBlacklist}/etc/ssl/certs/ca-bundle.crt";
-in
 {
   imports = [
     ./claude.nix
@@ -75,10 +59,5 @@ in
 
   home.sessionVariables = {
     EDITOR = "emacsclient";
-    SSL_CERT_FILE = caBundle;
-    NIX_SSL_CERT_FILE = caBundle;
-    CURL_CA_BUNDLE = caBundle;
-    GIT_SSL_CAINFO = caBundle;
-    REQUESTS_CA_BUNDLE = caBundle;
   };
 }
