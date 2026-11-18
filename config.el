@@ -200,9 +200,16 @@
 		     ;;(mark " " (name 16 -1) " " project-file-relative)
                      )))
 
-;; (use-package mode-line
-;;   :custom-face
-;;   )
+(use-package hide-mode-line
+  :demand t
+  :config
+  (global-hide-mode-line-mode))
+
+(use-package frame
+  :custom
+  (window-divider-default-places 'bottom-only)
+  (window-divider-default-bottom-width 1)
+  (window-divider-mode t))
 
 (use-package dired
   :config
