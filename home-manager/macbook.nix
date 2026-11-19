@@ -48,6 +48,13 @@
     functions.fish_prompt = ''
       echo -n "% "
     '';
+    functions.assume = ''
+      if not command -q assumego
+          echo "assume: granted is not on PATH; enter a project shell that provides it" >&2
+          return 1
+      end
+      source (path dirname (command -s assumego))/../share/assume.fish $argv
+    '';
   };
 
   programs.direnv = {
