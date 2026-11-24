@@ -126,7 +126,7 @@
      If called with a prefix argument, grep inside the `default-directory'
      instead of project-wide."
     (interactive (list (and current-prefix-arg default-directory)
-                       (when-let ((s (symbol-at-point)))
+                       (when-let* ((s (symbol-at-point)))
 			 (symbol-name s))))
     (funcall consult-preferred-grep-function dir initial))
   :bind
