@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -15,6 +15,7 @@
 
   home.packages = [
     (pkgs.aspellWithDicts (dicts: with dicts; [ en ]))
+    pkgs.devenv
     pkgs.llm-agents.claude-agent-acp
     pkgs.llm-agents.codex-acp
     pkgs.coreutils-prefixed
@@ -44,6 +45,9 @@
       if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
           source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
       end
+    '';
+    interactiveShellInit = lib.mkAfter ''
+      ${lib.getExe pkgs.devenv} hook fish | source
     '';
     functions.fish_prompt = ''
       echo -n "% "
