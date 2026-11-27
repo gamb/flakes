@@ -318,6 +318,8 @@
 
 (use-package agent-shell
   :custom
+  (agent-shell-google-gemini-acp-command '("gemini" "--acp"))
+  (agent-shell-google-authentication '((:api-key . t)))
   (agent-shell-anthropic-authentication
    (agent-shell-anthropic-make-authentication :login t))
   (agent-shell-agent-configs
