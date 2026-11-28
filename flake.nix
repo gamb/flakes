@@ -50,7 +50,6 @@
           default = shellPkgs.mkShell {
             packages = with shellPkgs; [
               just
-              llm-agents.packages.${shellSystem}.gemini-cli
               nixfmt
               home-manager.packages.${shellSystem}.home-manager
             ];
